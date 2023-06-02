@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { fetchComments, putId } from "../../store/commentsReducer";
+import { fetchComments } from "../../store/commentsReducer";
 import Comments from "../comments/comments";
 
 const Posts = (id) => {

@@ -1,11 +1,10 @@
-import { useSelector } from "react-redux"
-import {put, takeEvery,takeLeading, call, select} from "redux-saga/effects"
-import { FETCH_COMMENTS,  requestComments, REQUESTED_COMMENTS, requestCommentsError, setComments, putId } from "../store/commentsReducer"
+import {put, takeLeading, call} from "redux-saga/effects"
+import { FETCH_COMMENTS,  requestCommentsError, setComments, putId } from "../store/commentsReducer"
 
 // const items = select(state => state.commentReducer.commentId)
 
 // console.log(items)
-const item = 7;
+
 function* fetchCommentsDataWorker() {
   try {
     yield put (putId());
