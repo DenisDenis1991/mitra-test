@@ -9,28 +9,31 @@ export const SET_USERS = "SET_USERS"
 export const FETCH_USERS = "FETCH_USERS"
 
 export default function userReducer(state = defaultState, action) {
-    switch(action.type) {
-      case 'REQUESTED_USERS':
+  switch(action.type) {
+    case 'REQUESTED_USERS':
+      return {
+        users: [],
+        posts: [],
+        loading: true,
+        error: false,
+      };
+    case SET_USERS:
+      return {
+        users: action.payload.dataUsers,
+        posts: action.payload.dataPosts,
+        loading: false,
+        error: false,
+      };
+    case 'REQUESTED_USERS_FAILED':
         return {
           users: [],
-          loading: true,
-          error: false,
-        };
-      case SET_USERS:
-        return {
-          users: action.payload.dataUsers,
-          posts: action.payload.dataPosts,
-          loading: false,
-          error: false,
-        };
-      case 'REQUESTED_USERS_FAILED':
-        return {
+          posts: [],
           loading: false,
           error: true,
         }
-      default:
-        return state;
-    }
+    default:
+      return state;
+  }
 }
 
 export const requestUsers = () => {

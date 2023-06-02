@@ -4,6 +4,8 @@ import {FETCH_USERS, setUsers, requestUsers, requiestUsersError} from "../store/
 
 function* fetchUserDataWorker() {
   try {
+    // const items = yield select(state => state.userReducer.loading)
+    // yield console.log(items)
     yield put (requestUsers());/* отправляет статус загрузки в редюьсер*/
     const dataUsers = yield call(()=> {
       return fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json())
