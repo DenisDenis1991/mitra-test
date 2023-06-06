@@ -5,8 +5,11 @@ import { AppRoute } from './const';
 import MainPage from './pages/main-page/main-page';
 import Layout from './componients/layout/layout';
 import Posts from './pages/posts/posts';
+import { useSelector } from 'react-redux';
 
 function App() {
+  // const store = useSelector(store => store)
+  // console.log(store)
   return (
     <BrowserRouter>
       <Routes>

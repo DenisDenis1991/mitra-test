@@ -3,13 +3,13 @@ const initialState = {
 	commentId: null,
 };
 
-
 const SET_COMMENTS = 'SET_COMMENTS';
 export const FETCH_COMMENTS = 'FETCH_COMMENTS';
 export const REQUESTED_COMMENTS = 'REQUESTED_COMMENTS';
 const REQUESTED_COMMENTS_FAILED = 'REQUESTED_COMMENTS_FAILED';
+export const PUT_ID = 'putId';
 
-export const commentsReducer = (state = initialState, action) => {
+const commentsReducer = (state = initialState, action) => {
 	switch(action.type) {
 		// case REQUESTED_COMMENTS:
         // return {
@@ -17,14 +17,15 @@ export const commentsReducer = (state = initialState, action) => {
         //   commentId: null,
         // };
 
-		case FETCH_COMMENTS:
-      return {
-        // comments: [],
-		    commentId: action.commentId,
-      };
+		case 'putId':
+			return {
+			...state,
+			commentId: action.commentId
+			};
 
 		case SET_COMMENTS: 
 			return {
+			...state,
 			comments: action.payload,
 			};
 		case REQUESTED_COMMENTS_FAILED:
@@ -47,11 +48,14 @@ export const requestCommentsError = () => {
 };
 
 export const setComments = (payload) => ({ type: SET_COMMENTS, payload});
-export const fetchComments = (commentId) => {return({
+
+export const fetchComments = () => {return({
 	type: FETCH_COMMENTS,
-	commentId
 })};
 
-export const putId = (commentId) => {return { type: 'putId',
+export const putId = (commentId) => {
+	return { type: 'putId',
   commentId
 }}
+
+export default commentsReducer;

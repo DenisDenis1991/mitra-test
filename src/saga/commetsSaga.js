@@ -1,23 +1,19 @@
-import {put, takeLeading, call} from "redux-saga/effects"
-import { FETCH_COMMENTS,  requestCommentsError, setComments, putId } from "../store/commentsReducer"
+import {put, takeLeading, call, select} from "redux-saga/effects"
+import { FETCH_COMMENTS,  requestCommentsError, setComments, PUT_ID } from "../store/commentsReducer"
+import { takeData } from "./userSaga"
 
-// const items = select(state => state.commentReducer.commentId)
-
-// console.log(items)
 
 function* fetchCommentsDataWorker() {
+  const commentId = yield select(store => store.commentsReducer.commentId);
   try {
-    yield put (putId());
-    const dataComments = yield call(() => {
-      return fetch(`https://jsonplaceholder.typicode.com/comments`).then(res => res.json())/*?postId=${item}*/
-      }
-    );
+    const dataComments = yield call(takeData,`comments?postId=${commentId}`)
     yield put(setComments(dataComments))
+
   } catch (error) {
     yield put(requestCommentsError());
   }
 }
 
 export function* commentsWatcher() {
-  yield takeLeading(FETCH_COMMENTS, fetchCommentsDataWorker)
+  yield takeLeading(PUT_ID, fetchCommentsDataWorker)
 }

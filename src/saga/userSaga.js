@@ -1,20 +1,20 @@
-import {put, takeEvery, call} from "redux-saga/effects"
+import {put, takeEvery, call, select} from "redux-saga/effects"
 import {FETCH_USERS, setUsers, requestUsers, requiestUsersError} from "../store/userReducer";
+    // https://jsonplaceholder.typicode.com/users?_start=0&_limit=5&_page=2
 
+export const takeData = async (getApi, page) => {
+
+  const request = await fetch(`https://jsonplaceholder.typicode.com/${getApi}/${page}`);
+  const data = await request.json();
+  return data;
+}
 
 function* fetchUserDataWorker() {
   try {
-    // const items = yield select(state => state.userReducer.loading)
-    // yield console.log(items)
     yield put (requestUsers());/* отправляет статус загрузки в редюьсер*/
-    const dataUsers = yield call(()=> {
-      return fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json())
-      }
-    );
-    const dataPosts = yield call (() => {
-      return fetch('https://jsonplaceholder.typicode.com/posts').then(res => res.json())
-    });
-    yield put(setUsers({'dataUsers': dataUsers, 'dataPosts': dataPosts}))
+    const users = yield call(takeData, 'users', `?_start=0&_limit=5&_page=1}`);
+    const posts = yield call(takeData, 'posts', '')
+    yield put(setUsers({'dataUsers': users, 'dataPosts': posts}))
   } catch (error) {
     yield put(requiestUsersError());
   }
