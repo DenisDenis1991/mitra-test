@@ -1,12 +1,13 @@
-import {put, takeLeading, call, select} from "redux-saga/effects"
-import { FETCH_COMMENTS,  requestCommentsError, setComments, PUT_ID } from "../store/commentsReducer"
-import { takeData } from "./userSaga"
+import {put, call, select, takeEvery} from "redux-saga/effects"
+import { requestCommentsError, setComments, PUT_ID } from "../store/commentsReducer"
+import { takeData, delay } from "../utils/utils";
 
 
 function* fetchCommentsDataWorker() {
   const commentId = yield select(store => store.commentsReducer.commentId);
   try {
-    const dataComments = yield call(takeData,`comments?postId=${commentId}`)
+    const dataComments = yield call(takeData,`comments?postId=${commentId}`, '')
+    yield delay(1000)
     yield put(setComments(dataComments))
 
   } catch (error) {
@@ -15,5 +16,5 @@ function* fetchCommentsDataWorker() {
 }
 
 export function* commentsWatcher() {
-  yield takeLeading(PUT_ID, fetchCommentsDataWorker)
+  yield takeEvery(PUT_ID, fetchCommentsDataWorker)
 }

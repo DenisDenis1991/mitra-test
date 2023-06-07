@@ -1,16 +1,18 @@
 import {useDispatch, useSelector} from "react-redux";
-import PostsList from "../../componients/posts-list/posts-list";
+import PostsList from "../../components/posts-list/posts-list";
 import { useState, useEffect } from "react";
 import { fetchUsers } from "../../store/userReducer";
-import Pagination from 'react-bootstrap/Pagination';
-import AdvancedExample from "../../componients/pagination/pagination";
 import { setCurrentPage } from "../../store/userReducer";
+import { createPages } from "../../utils/utils";
+
+
 const MainPage = () => {
 
   const currentPage = useSelector(state => state.userReducer.currentPage);
   const totalCount = useSelector(state => state.userReducer.totalCount);
-  const perPage = useSelector(state => state.userReducer.perPage);
-  const pages = [1,2,3,4];
+
+  const pages = [];
+  createPages(pages, totalCount, currentPage)
 
   const dispatch = useDispatch()
   const postsList = useSelector(state => state.userReducer.posts);
@@ -35,9 +37,9 @@ const MainPage = () => {
     return () => clearTimeout(Debounce);
   }, [inputText, postsList]);
 
-  useEffect(()=>{
-    dispatch(fetchUsers())
-}, [currentPage])
+//   useEffect(()=>{
+//     dispatch(setCurrentPage())
+// }, [currentPage, dispatch])
 
   return (
     <main>
@@ -58,13 +60,12 @@ const MainPage = () => {
       <div>
         <PostsList posts={posts}/>
       </div>
-      {/* <AdvancedExample /> */}
       <div className="pages">
-                {pages.map((page, index) => <span
-                    key={index}
-                    className={currentPage == page ? "current-page" : "page"}
-                    onClick={() => dispatch(setCurrentPage(page))}>{page}</span>)}
-            </div>
+        {pages.map((page) => <span
+          key={page}
+          className={currentPage === page ? "current-page" : "page"}
+          onClick={() => {dispatch(setCurrentPage(page)); dispatch(fetchUsers())}}>{page}</span>)}
+      </div>
     </main>  
   )
 }

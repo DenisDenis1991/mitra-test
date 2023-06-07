@@ -17,7 +17,7 @@ const commentsReducer = (state = initialState, action) => {
         //   commentId: null,
         // };
 
-		case 'putId':
+		case PUT_ID:
 			return {
 			...state,
 			commentId: action.commentId
@@ -30,7 +30,7 @@ const commentsReducer = (state = initialState, action) => {
 			};
 		case REQUESTED_COMMENTS_FAILED:
       return {
-
+		...state
       }
 		default:
 			return state
@@ -54,8 +54,8 @@ export const fetchComments = () => {return({
 })};
 
 export const putId = (commentId) => {
-	return { type: 'putId',
-  commentId
+	return { type: PUT_ID,
+  	commentId
 }}
 
 export default commentsReducer;
