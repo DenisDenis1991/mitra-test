@@ -4,7 +4,7 @@ import { putId } from "../../store/commentsReducer";
 import Comments from "../comments/comments";
 
 
-const Posts = ({id}) => {
+const Posts = ({id, filteredPostList}) => {
   const postsId = useSelector(state => state.userReducer.posts)
 
   const comId = useSelector(state => state.commentsReducer.commentId)
@@ -24,7 +24,7 @@ const Posts = ({id}) => {
 
   return (
     <ul className="posts">
-      {postsId.map(element =>
+      {filteredPostList.map(element =>
         element.userId === id? 
         <li key={element.id} className={`${element.id}`} >
           <h2>{element.title}</h2>

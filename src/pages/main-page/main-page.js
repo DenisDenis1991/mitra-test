@@ -4,42 +4,48 @@ import { useState, useEffect } from "react";
 import { fetchUsers } from "../../store/userReducer";
 import { setCurrentPage } from "../../store/userReducer";
 import { createPages } from "../../utils/utils";
+import MainPagination from "../../components/pagination/pagination";
+import { delay } from "../../utils/utils";
+import { $CombinedState } from "@reduxjs/toolkit";
 
+
+
+
+
+const filterPostList = (inputText, arr) => {
+  if (!inputText) {
+    return arr;
+  }
+  return arr.filter(({ title }) => title.toLowerCase().includes(inputText.toLowerCase()));
+}
 
 const MainPage = () => {
 
-  const currentPage = useSelector(state => state.userReducer.currentPage);
-  const totalCount = useSelector(state => state.userReducer.totalCount);
-
-  const pages = [];
-  createPages(pages, totalCount, currentPage)
-
   const dispatch = useDispatch()
   const postsList = useSelector(state => state.userReducer.posts);
+  const users = useSelector(state => state.userReducer.users);
+
 
   const [inputText, setSearchTrext] = useState('');
   const [posts, setPostList] = useState(postsList);
-
-  const filterPostList = (inputText, arr) => {
-    if (!inputText) {
-      return arr;
-    }
-    return arr.filter(({ title }) => title.toLowerCase().includes(inputText.toLowerCase()));
-  }
-
-
-
+  
+  const countPage = (new Set(posts.map(item => item.userId))).size;
   useEffect(() => {
+
+    const filteredPostList = filterPostList(inputText, postsList);
     const Debounce = setTimeout(() => {
-      const filteredPostList = filterPostList(inputText, postsList);
-      setPostList(filteredPostList);
-    }, 300);
+
+    }, 3100);
+    setPostList(filteredPostList);
     return () => clearTimeout(Debounce);
   }, [inputText, postsList]);
+  
 
-//   useEffect(()=>{
-//     dispatch(setCurrentPage())
-// }, [currentPage, dispatch])
+   useEffect(() => {
+    if (postsList.length > 0) {
+      dispatch(fetchUsers())
+    }
+ }, [])
 
   return (
     <main>
@@ -57,15 +63,13 @@ const MainPage = () => {
       <button onClick={() => setSearchTrext('')}>Очистить</button> 
       </div>
       <button className="btn" onClick={() => dispatch(fetchUsers())}>ПОЛУЧИТЬ ЮЗЕРОВ--</button>
+      <MainPagination countPage={countPage} />
       <div>
         <PostsList posts={posts}/>
       </div>
-      <div className="pages">
-        {pages.map((page) => <span
-          key={page}
-          className={currentPage === page ? "current-page" : "page"}
-          onClick={() => {dispatch(setCurrentPage(page)); dispatch(fetchUsers())}}>{page}</span>)}
-      </div>
+
+
+      
     </main>  
   )
 }

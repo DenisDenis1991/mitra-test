@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Posts from "../../components/posts/posts";
-import { fetchUsers } from "../../store/userReducer";
+import { fetchUsers, setCurrentPostPage } from "../../store/userReducer";
 import { useDispatch } from "react-redux/es/exports";
 import { useEffect } from "react";
 import { LinkContainer } from 'react-router-bootstrap';
@@ -9,11 +9,19 @@ import { AppRoute } from "../../const";
 
 const PostsPage = () => {
   const activeUser = localStorage.getItem('activeUser');
+  const allPosts = useSelector(state => state.userReducer.posts);
   const allUsers = useSelector(state => state.userReducer.users);
   const dispatch = useDispatch()
 
+
   useEffect(()=>{
-    dispatch(fetchUsers())
+    if (allUsers.length <= 0) {
+      dispatch(setCurrentPostPage({currentPostPage:Number(activeUser), perPostPage: 1}))
+      dispatch(fetchUsers())
+    }
+    return () => {
+      dispatch(setCurrentPostPage({currentPostPage:1, perPostPage: 2}))
+    }
  }, [])
 
   return (
@@ -40,7 +48,7 @@ const PostsPage = () => {
           : null
         )}
       </ul>
-      <Posts id={Number(activeUser)}/>
+      <Posts id={Number(activeUser)} filteredPostList={allPosts}/>
     </main>
   )
 };
