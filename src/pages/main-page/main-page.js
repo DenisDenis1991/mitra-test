@@ -5,8 +5,7 @@ import { fetchUsers } from "../../store/userReducer";
 import { setCurrentPage } from "../../store/userReducer";
 import { createPages } from "../../utils/utils";
 import MainPagination from "../../components/pagination/pagination";
-import { delay } from "../../utils/utils";
-import { $CombinedState } from "@reduxjs/toolkit";
+import {Form, InputGroup, Button} from 'react-bootstrap';
 
 
 
@@ -29,41 +28,46 @@ const MainPage = () => {
   const [inputText, setSearchTrext] = useState('');
   const [posts, setPostList] = useState(postsList);
   
-  const countPage = (new Set(posts.map(item => item.userId))).size;
+  const countPage = Math.ceil((new Set(posts.map(item => item.userId))).size/2);
   useEffect(() => {
 
-    const filteredPostList = filterPostList(inputText, postsList);
     const Debounce = setTimeout(() => {
-
-    }, 3100);
-    setPostList(filteredPostList);
+      const filteredPostList = filterPostList(inputText, postsList);
+      setPostList(filteredPostList);
+    }, 0);
     return () => clearTimeout(Debounce);
   }, [inputText, postsList]);
   
 
-   useEffect(() => {
-    if (postsList.length > 0) {
-      dispatch(fetchUsers())
-    }
- }, [])
-
   return (
     <main>
       <div>
-        <input
-          value={inputText}
-          autoFocus
-          type="text"
-          autoComplete="off"
-          placeholder="Поиск по заголовку"
-          onChange={(e) => setSearchTrext(e.target.value)}
-          className="w-100 text-stone-900 placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-sm py-2 px-3 shadow-lg focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm mx-auto"
-          srtyle={{width: '600px'}}
-        />
-      <button onClick={() => setSearchTrext('')}>Очистить</button> 
+        <InputGroup className="mb-3">
+          <Form.Control
+            value={inputText}
+            autoFocus
+            type="text"
+            autoComplete="off"
+            placeholder="Поиск по заголовку"
+            onChange={(e) => setSearchTrext(e.target.value)}
+          />
+          <Button 
+            variant="outline-secondary" 
+            id="button-addon2"
+            onClick={() => setSearchTrext('')}
+            > Очистить
+          </Button>
+        </InputGroup>
+        <Button 
+          variant="primary" 
+          size="lg"
+          onClick={() => dispatch(fetchUsers())}
+          style={{width: '100%'}}
+          >
+          Получить список авторов
+        </Button>  
       </div>
-      <button className="btn" onClick={() => dispatch(fetchUsers())}>ПОЛУЧИТЬ ЮЗЕРОВ--</button>
-      <MainPagination countPage={countPage} />
+        <MainPagination countPage={countPage} />
       <div>
         <PostsList posts={posts}/>
       </div>

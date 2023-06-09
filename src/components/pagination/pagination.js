@@ -15,11 +15,14 @@ const MainPagination = (countPage) => {
   createPages(pages, countPage.countPage, currentPage)
 
   return (
-    <Pagination className="pages">
-      {pages.map((page) => <Pagination.Item
+    <Pagination 
+      className="pages"
+      style={{justifyContent: 'center'}}
+      >
+      {pages.map((page, index) => <Pagination.Item
         key={page}
         className={currentPage === page ? "current-page" : "page"}
-        onClick={() => {dispatch(setCurrentPage(page))}}>{page}
+        onClick={() => {dispatch(setCurrentPage({currentPage: page, indexCurrentPage: index}))}}>{page}
       </Pagination.Item>)}
         
     </Pagination>

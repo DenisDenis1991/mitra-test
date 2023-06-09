@@ -2,6 +2,7 @@ const defaultState = {
     users: [],
     posts: [],
     currentPage: 1,
+    indexCurrentPage: 0,
     perPage: 2,
     totalCount: 10,
     loading: false,
@@ -50,7 +51,8 @@ export default function userReducer(state = defaultState, action) {
         case SET_CURRENT_PAGE:
             return {
               ...state,
-              currentPage: action.payload,
+              currentPage: action.payload.currentPage,
+              indexCurrentPage: action.payload.indexCurrentPage,
               perPage: 2
             }
     case SET_ACTIVE_USER:
