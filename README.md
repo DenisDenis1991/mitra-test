@@ -1,3 +1,27 @@
+Необходимо реализовать SPA (single page application) на React.
+
+Ключевые технологии, которые необходимо использовать
+
+React
+React-bootstrap
+React-router
+Axios
+Redux
+Redux-saga
+Git
+ 
+
+Описание задачи
+
+Нужно создать сайт с постами, где будут присутствовать 3 страницы (роута):
+
+1. Список постов (главная страница), где будут располагаться все посты.
+
+2. Обо мне, где будет располагаться краткая информация о Вас.
+
+3. Подробности о пользователе (куда необходимо вывести информацию о пользователе и список его постов)
+
+Получить данные необходимо через фейковое api https://jsonplaceholder.typicode.com.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
