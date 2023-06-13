@@ -2,10 +2,12 @@ const defaultState = {
     users: [],
     posts: [],
     currentPage: 1,
+    perPage: 2,
     totalCount: 10,
     loading: false,
     error: false,
-    activeUser: null,
+    activePost: null,
+
 }
 
 export const SET_USERS = "SET_USERS"
@@ -14,6 +16,7 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_REPOS = "SET_REPOS"
 const REQUESTED_USERS = "REQUESTED_USERS"
 const SET_ACTIVE_USER =  "SET_ACTIVE_USER"
+export const SET_CURRENT_POST_PAGE = "FETCH_USERS_POST_PAGE"
 
 export default function userReducer(state = defaultState, action) {
   switch(action.type) {
@@ -47,13 +50,20 @@ export default function userReducer(state = defaultState, action) {
         case SET_CURRENT_PAGE:
             return {
               ...state,
-              currentPage: action.payload
+              currentPage: action.payload,
+              perPage: 2
             }
     case SET_ACTIVE_USER:
       return{
         ...state,
         activeUser: action.payload,
       }
+      case SET_CURRENT_POST_PAGE:
+        return{
+          ...state,
+          perPage: action.payload.perPostPage,
+          currentPage: action.payload.currentPostPage,
+        }
     default:
       return state;
   }
@@ -71,8 +81,11 @@ export const setRepos = (payload) => ({type: SET_REPOS, payload})
 
 export const setUsers = payload => ({type: SET_USERS, payload})
 
-export const fetchUsers = () => ({type: FETCH_USERS})
+
+export const fetchUsers = (payload) => ({type: FETCH_USERS, payload})
 
 export const setCurrentPage = (payload) => ({type:SET_CURRENT_PAGE, payload})
 
+export const setCurrentPostPage = (payload) => ({type:SET_CURRENT_POST_PAGE,
+  payload})
 export const activeUser = (payload) => ({type: SET_ACTIVE_USER, payload})
