@@ -32,27 +32,16 @@ const PostsList = (posts) => {
     <ListGroup>
       {clearUsers.map((user) => 
         <ListGroup.Item key={user.id}>
-
-              <LinkContainer to={AppRoute.Posts} style={{cursor: 'pointer'}}>
-                <NavItem eventKey={1}>
-                  <div className="d-flex align-items-center gap-23">
-                  {/* <Col 
-                  className="d-inline-flex"
-                  style={{width:'min-widht'}}
-                  > */}
-                    <svg class="me-10" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <LinkContainer id={user.id} to={AppRoute.Posts} style={{cursor: 'pointer'}} onClick={(evt) => localStorage.setItem('activeUser', evt.currentTarget.id )}>
+                <NavItem eventkey={1}>
+                  <div key={user.id} className="d-flex align-items-center gap-23">
+                    <svg className="me-10" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" clipRule="evenodd" d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z" fill="#000" fillOpacity=".4"/>
                     </svg>
-                  {/* </Col> */}
-                  {/* <Col className="col"> */}
                     <h1 className="flex-grow-1 ms-2">{user.name}</h1>
-                  {/* </Col> */}
-                    
                   </div>
-
                 </NavItem>
               </LinkContainer>
-
           <Posts id={user.id} filteredPostList={filteredPostList} />
         </ListGroup.Item>
         )}
