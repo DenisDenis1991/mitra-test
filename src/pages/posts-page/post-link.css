@@ -1,0 +1,9 @@
+.post-link{
+  display: inline-block;
+  background-color: #0d6efd;
+  color: aliceblue;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
+}

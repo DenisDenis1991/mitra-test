@@ -2,14 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import PostsList from "../../components/posts-list/posts-list";
 import { useState, useEffect } from "react";
 import { fetchUsers } from "../../store/userReducer";
-import { setCurrentPage } from "../../store/userReducer";
-import { createPages } from "../../utils/utils";
 import MainPagination from "../../components/pagination/pagination";
-import {Form, InputGroup, Button} from 'react-bootstrap';
-
-
-
-
+import {Form, InputGroup, Button, Container} from 'react-bootstrap';
+import LoadingScreen from "../../components/loading-screen/loading-screen";
 
 const filterPostList = (inputText, arr) => {
   if (!inputText) {
@@ -19,18 +14,17 @@ const filterPostList = (inputText, arr) => {
 }
 
 const MainPage = () => {
-
   const dispatch = useDispatch()
   const postsList = useSelector(state => state.userReducer.posts);
-  const users = useSelector(state => state.userReducer.users);
-
+  const isLoad = useSelector(state => state.userReducer.loading);
+  const fetchError = useSelector(state => state.userReducer.error);
+  console.log(postsList.length)
 
   const [inputText, setSearchTrext] = useState('');
   const [posts, setPostList] = useState(postsList);
   
   const countPage = Math.ceil((new Set(posts.map(item => item.userId))).size/2);
   useEffect(() => {
-
     const Debounce = setTimeout(() => {
       const filteredPostList = filterPostList(inputText, postsList);
       setPostList(filteredPostList);
@@ -38,47 +32,51 @@ const MainPage = () => {
     return () => clearTimeout(Debounce);
   }, [inputText, postsList]);
   
+  useEffect(() => {
+    if(postsList.length >= 0) {
+      dispatch(fetchUsers())
+    }
+  }, [])
 
   return (
+    
     <main>
-      <div>
-        <InputGroup className="mb-3">
-          <Form.Control
-            value={inputText}
-            autoFocus
-            type="text"
-            autoComplete="off"
-            placeholder="Поиск по заголовку"
-            onChange={(e) => setSearchTrext(e.target.value)}
-          />
-          <Button 
-            variant="outline-secondary" 
-            id="button-addon2"
-            onClick={() => setSearchTrext('')}
-            > Очистить
-          </Button>
-        </InputGroup>
-        <Button 
-          variant="primary" 
-          size="lg"
-          onClick={() => dispatch(fetchUsers())}
-          style={{width: '100%'}}
-          >
-          Получить список авторов
-        </Button>  
-      </div>
-        <MainPagination countPage={countPage} />
-      <div>
-        <PostsList posts={posts}/>
-      </div>
+      {fetchError ? 
+        <div className="alert alert-danger" role="alert">
+          Произошла ошибка! ПОжалуйста обновите страницу!
+        </div> :
+        isLoad === true? <LoadingScreen /> :
+        <>
+          <Container>
+            <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center', marginBottom: '20px'}}>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  value={inputText}
+                  autoFocus
+                  type="text"
+                  autoComplete="off"
+                  placeholder="Поиск по заголовку"
+                  onChange={(e) => setSearchTrext(e.target.value)}
+                  />
+                <Button 
+                  variant="outline-secondary" 
+                  id="button-addon2"
+                  onClick={() => setSearchTrext('')}
+                  > Очистить
+                </Button>
+              </InputGroup>
+            </div>
+          </Container>
+            <MainPagination countPage={countPage} />
+          <div>
+            <PostsList posts={posts}/>
+          </div>
 
+        </>
+      }
+    </main>
 
-      
-    </main>  
   )
 }
 
 export default MainPage;
-    // let unique = filterArr.reduce((acc, elem)=> acc.add(elem.userId), new Set())
-    // const asd = Array.from(new Set(filterArr.map(item => item.userId)));.
-    // https://jsonplaceholder.typicode.com/users?_start=0&_limit=5&_page=2

@@ -3,4 +3,6 @@ export const AppRoute = {
     Main: '/',
     Posts: '/posts',
     NotFound: '*',
-  }
+  };
+
+export const PER_PAGE = 2;
