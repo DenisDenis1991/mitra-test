@@ -4,8 +4,10 @@ import { putId } from "../../store/commentsReducer";
 import Comments from "../comments/comments";
 import { ListGroup, Button } from "react-bootstrap";
 
+
 const Posts = ({id, filteredPostList}) => {
   const commentId = useSelector(state => state.commentsReducer.commentId)
+
 
   const dispatch = useDispatch()
  

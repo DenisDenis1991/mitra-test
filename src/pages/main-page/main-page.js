@@ -71,9 +71,6 @@ const MainPage = () => {
       <div>
         <PostsList posts={posts}/>
       </div>
-
-
-      
     </main>  
   )
 }

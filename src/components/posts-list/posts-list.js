@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux/es/exports";
 import {ListGroup, NavItem, Container, Row, Col} from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap';
 
-
 const PostsList = (posts) => {
   const allUsers = useSelector(state => state.userReducer.users);
   const filteredPostList = posts.posts
@@ -48,6 +47,7 @@ const PostsList = (posts) => {
     </ListGroup>
     : <></>
   )
+
 }
 export default PostsList;
 
