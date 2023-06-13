@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { LinkContainer } from 'react-router-bootstrap';
 import NavItem from "react-bootstrap/esm/NavLink";
 import { AppRoute } from "../../const";
+import { Nav, ListGroup  } from "react-bootstrap";
 
 const PostsPage = () => {
   const activeUser = localStorage.getItem('activeUser');
@@ -29,25 +30,25 @@ const PostsPage = () => {
         <LinkContainer to={AppRoute.Main}>
           <NavItem eventKey={1}>Home</NavItem>
         </LinkContainer>
-      <ul>
+      <ListGroup>
         {allUsers.map(user => 
           user.id === Number(activeUser) ?
 
-          <li key={activeUser}>
+          <ListGroup.Item key={activeUser}>
             <h2>{user.name}</h2>  
-            <div>
-              <a href={user.website}>{user.website}</a>
-            </div>
-            <div>
-              <a href={`asd:${user.phone}`}>{user.phone}</a>
-            </div>
-            <div>
-              <a href={`mailto:${user.email}`}>{user.email}</a>
-            </div>
-          </li>
+            {/* <div> */}
+              <Nav.Link href={user.website}>{user.website}</Nav.Link>
+            {/* </div>
+            <div> */}
+              <Nav.Link href={`asd:${user.phone}`}>{user.phone}</Nav.Link>
+            {/* </div>
+            <div> */}
+              <Nav.Link href={`mailto:${user.email}`}>{user.email}</Nav.Link>
+            {/* </div> */}
+          </ListGroup.Item>
           : null
         )}
-      </ul>
+      </ListGroup>
       <Posts id={Number(activeUser)} filteredPostList={allPosts}/>
     </main>
   )
