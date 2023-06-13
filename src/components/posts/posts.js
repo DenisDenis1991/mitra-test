@@ -4,7 +4,9 @@ import { putId } from "../../store/commentsReducer";
 import Comments from "../comments/comments";
 
 
+
 const Posts = ({id, filteredPostList}) => {
+
   const postsId = useSelector(state => state.userReducer.posts)
 
   const comId = useSelector(state => state.commentsReducer.commentId)

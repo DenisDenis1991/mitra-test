@@ -3,9 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentPage, fetchUsers } from '../../store/userReducer';
 import { createPages } from '../../utils/utils';
 
-
-
-
 const MainPagination = (countPage) => {
   const dispatch = useDispatch ();
   const currentPage = useSelector(state => state.userReducer.currentPage);
@@ -21,7 +18,6 @@ const MainPagination = (countPage) => {
         className={currentPage === page ? "current-page" : "page"}
         onClick={() => {dispatch(setCurrentPage(page))}}>{page}
       </Pagination.Item>)}
-        
     </Pagination>
   );
 }
@@ -56,3 +52,4 @@ const PaginationBasic = () => {
 // render(paginationBasic);
 
 export default MainPagination;
+

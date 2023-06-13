@@ -46,7 +46,6 @@ const MainPage = () => {
       dispatch(fetchUsers())
     }
  }, [])
-
   return (
     <main>
       <div>
@@ -63,13 +62,11 @@ const MainPage = () => {
       <button onClick={() => setSearchTrext('')}>Очистить</button> 
       </div>
       <button className="btn" onClick={() => dispatch(fetchUsers())}>ПОЛУЧИТЬ ЮЗЕРОВ--</button>
+
       <MainPagination countPage={countPage} />
       <div>
         <PostsList posts={posts}/>
       </div>
-
-
-      
     </main>  
   )
 }

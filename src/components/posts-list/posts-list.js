@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux/es/exports";
 import { activeUser } from "../../store/userReducer";
 
-
 const PostsList = (posts) => {
   const allUsers = useSelector(state => state.userReducer.users);
   const filteredPostList = posts.posts
@@ -75,6 +74,7 @@ const PostsList = (posts) => {
 //       )}
 //     </ul>
 // );
+
 }
 export default PostsList;
 

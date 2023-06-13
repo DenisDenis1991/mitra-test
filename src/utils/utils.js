@@ -25,4 +25,5 @@ export function createPages(pages, pagesCount, currentPage) {
             pages.push(i)
         }
     // }
+
 }
