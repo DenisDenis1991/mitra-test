@@ -19,7 +19,6 @@ const MainPagination = (countPage) => {
         className={currentPage === page ? "current-page" : "page"}
         onClick={() => {dispatch(setCurrentPage({currentPage: page, indexCurrentPage: index}))}}>{page}
       </Pagination.Item>)}
-        
     </Pagination>
   );
 }

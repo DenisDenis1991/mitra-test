@@ -60,8 +60,7 @@ const PostsPage = () => {
           }
 
         </Container>
-        <Posts id={Number(activeUser)} filteredPostList={allPosts}/>
-      
+        <Posts id={Number(activeUser)} filteredPostList={allPosts}/>      
       </>
     }
     </main>

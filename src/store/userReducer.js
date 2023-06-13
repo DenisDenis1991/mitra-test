@@ -9,6 +9,7 @@ const defaultState = {
     loading: false,
     error: false,
     activePost: null,
+
 }
 
 export const SET_USERS = "SET_USERS"
@@ -40,7 +41,6 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         totalCount: action.payload,
       };
-    
 
     case REQUESTED_USERS_FAILED:
         return {
@@ -82,11 +82,11 @@ export const setRepos = (payload) => ({type: SET_REPOS, payload})
 
 export const setUsers = payload => ({type: SET_USERS, payload})
 
+
 export const fetchUsers = (payload) => ({type: FETCH_USERS, payload})
 
 export const setCurrentPage = (payload) => ({type:SET_CURRENT_PAGE, payload})
 
 export const setCurrentPostPage = (payload) => ({type:SET_CURRENT_POST_PAGE,
   payload})
-
 export const activeUser = (payload) => ({type: SET_ACTIVE_USER, payload})

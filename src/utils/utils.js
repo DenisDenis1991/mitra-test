@@ -10,6 +10,5 @@ export function createPages(pages, pagesCount, currentPage) {
     for (let i = 1; i <= pagesCount; i++) {
       pages.push(i)
     }
-
 }
 

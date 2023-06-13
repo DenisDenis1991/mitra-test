@@ -4,7 +4,6 @@ import { takeData, delay } from "../utils/utils";
 
 
 function* fetchCommentsDataWorker() {
-  const commentId = yield select(store => store.commentsReducer.commentId);
   try {
     yield put (requestComments(true));
     yield delay(500)

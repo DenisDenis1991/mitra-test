@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { putId } from "../../store/commentsReducer";
 import Comments from "../comments/comments";
+
 import {Container, ListGroup} from "react-bootstrap";
+
 
 
 const Posts = ({id, filteredPostList}) => {
   const commentId = useSelector(state => state.commentsReducer.commentId)
-
   const dispatch = useDispatch()
- 
   const [state, setState] = useState({
     isClose: true,
     elementId: null,
@@ -21,6 +21,7 @@ const Posts = ({id, filteredPostList}) => {
     }
   }, [state]);
 
+  console.log(state.elementId)
   return (
     <Container>
       <ListGroup className="posts">

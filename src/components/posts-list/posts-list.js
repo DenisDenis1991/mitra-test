@@ -9,7 +9,6 @@ import {ListGroup, NavItem, Container} from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap';
 import { PER_PAGE } from "../../const";
 
-
 const PostsList = (posts) => {
   const allUsers = useSelector(state => state.userReducer.users);
   const filteredPostList = posts.posts
@@ -50,6 +49,7 @@ const PostsList = (posts) => {
     </Container>
       : <></>
   )
+
 }
 export default PostsList;
 
