@@ -7,6 +7,7 @@ import Layout from './components/layout/layout';
 import PostsPage from './pages/posts-page/posts-page';
 import { useSelector } from 'react-redux';
 import ErrorPage from './pages/page-not-found/page-not-found';
+import AboutMe from './pages/about-me/about-me';
 
 function App() {
   // const store = useSelector(store => store)
@@ -18,6 +19,7 @@ function App() {
           <Route index element = {<MainPage />} />
           <Route path={AppRoute.Posts} element = {<PostsPage />} />
           <Route path={AppRoute.NotFound} element = {<ErrorPage />} />
+          <Route path={AppRoute.AboutMe} element = {<AboutMe />} />
         </Route>
       </Routes>
     </BrowserRouter>

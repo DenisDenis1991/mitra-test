@@ -4,16 +4,17 @@ import { fetchUsers, setCurrentPostPage } from "../../store/userReducer";
 import { useDispatch } from "react-redux/es/exports";
 import { useEffect } from "react";
 import { LinkContainer } from 'react-router-bootstrap';
-import NavItem from "react-bootstrap/esm/NavLink";
+import {NavItem, Container, ListGroup} from "react-bootstrap";
 import { AppRoute } from "../../const";
-import { Nav, ListGroup  } from "react-bootstrap";
+import "./post-link.css"
+import LoadingScreen from "../../components/loading-screen/loading-screen";
 
 const PostsPage = () => {
   const activeUser = localStorage.getItem('activeUser');
   const allPosts = useSelector(state => state.userReducer.posts);
+  const isLoad = useSelector(state => state.userReducer.loading);
   const allUsers = useSelector(state => state.userReducer.users);
   const dispatch = useDispatch()
-
 
   useEffect(()=>{
     if (allUsers.length <= 0) {
@@ -27,29 +28,41 @@ const PostsPage = () => {
 
   return (
     <main>
-        <LinkContainer to={AppRoute.Main}>
-          <NavItem eventKey={1}>Home</NavItem>
-        </LinkContainer>
-      <ListGroup>
-        {allUsers.map(user => 
-          user.id === Number(activeUser) ?
+      {isLoad === true? <LoadingScreen /> :
+      <>
+        <Container>
+          <LinkContainer 
+            to={AppRoute.Main}
+            className='post-link'
+          >
+            <NavItem>Назад</NavItem>
+          </LinkContainer>
+          {activeUser!==null?
+          <ListGroup>
+            {allUsers.map(user => 
+              user.id === Number(activeUser) ?
+              <ListGroup.Item key={activeUser}>
+                <h2>{user.name}</h2>  
+                <div>
+                  <a href={user.website}>{user.website}</a>
+                </div>
+                <div>
+                  <a href={`tel:${user.phone}`}>{user.phone}</a>
+                </div>
+                <div>
+                  <a href={`mailto:${user.email}`}>{user.email}</a>
+                </div>
+              </ListGroup.Item>
+              : null
+            )}
+          </ListGroup>
+          :<p>Выберите автора</p>
+          }
 
-          <ListGroup.Item key={activeUser}>
-            <h2>{user.name}</h2>  
-            {/* <div> */}
-              <Nav.Link href={user.website}>{user.website}</Nav.Link>
-            {/* </div>
-            <div> */}
-              <Nav.Link href={`asd:${user.phone}`}>{user.phone}</Nav.Link>
-            {/* </div>
-            <div> */}
-              <Nav.Link href={`mailto:${user.email}`}>{user.email}</Nav.Link>
-            {/* </div> */}
-          </ListGroup.Item>
-          : null
-        )}
-      </ListGroup>
-      <Posts id={Number(activeUser)} filteredPostList={allPosts}/>
+        </Container>
+        <Posts id={Number(activeUser)} filteredPostList={allPosts}/>      
+      </>
+    }
     </main>
   )
 };

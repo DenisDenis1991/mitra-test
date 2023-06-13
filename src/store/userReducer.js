@@ -1,9 +1,10 @@
+import { PER_PAGE } from "../const"
 const defaultState = {
     users: [],
     posts: [],
     currentPage: 1,
     indexCurrentPage: 0,
-    perPage: 2,
+    perPage: PER_PAGE,
     totalCount: 10,
     loading: false,
     error: false,
@@ -18,6 +19,7 @@ const SET_REPOS = "SET_REPOS"
 const REQUESTED_USERS = "REQUESTED_USERS"
 const SET_ACTIVE_USER =  "SET_ACTIVE_USER"
 export const SET_CURRENT_POST_PAGE = "FETCH_USERS_POST_PAGE"
+const REQUESTED_USERS_FAILED = 'REQUESTED_USERS_FAILED';
 
 export default function userReducer(state = defaultState, action) {
   switch(action.type) {
@@ -40,12 +42,9 @@ export default function userReducer(state = defaultState, action) {
         totalCount: action.payload,
       };
 
-    case 'REQUESTED_USERS_FAILED':
+    case REQUESTED_USERS_FAILED:
         return {
           ...state,
-          users: [],
-          posts: [],
-          loading: false,
           error: true,
         }
         case SET_CURRENT_PAGE:
@@ -76,7 +75,7 @@ export const requestUsers = (payload) => {
 };
 
 export const requiestUsersError = () => {
-  return { type: 'REQUESTED_USERS_FAILED' }
+  return { type: REQUESTED_USERS_FAILED }
 };
 
 export const setRepos = (payload) => ({type: SET_REPOS, payload})
