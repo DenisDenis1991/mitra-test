@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/mitra-test/static/css/main.55595d13.css",
-    "main.js": "/mitra-test/static/js/main.53517da7.js",
+    "main.js": "/mitra-test/static/js/main.ae97d66c.js",
     "static/js/787.142a8090.chunk.js": "/mitra-test/static/js/787.142a8090.chunk.js",
     "index.html": "/mitra-test/index.html",
     "main.55595d13.css.map": "/mitra-test/static/css/main.55595d13.css.map",
-    "main.53517da7.js.map": "/mitra-test/static/js/main.53517da7.js.map",
+    "main.ae97d66c.js.map": "/mitra-test/static/js/main.ae97d66c.js.map",
     "787.142a8090.chunk.js.map": "/mitra-test/static/js/787.142a8090.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.55595d13.css",
-    "static/js/main.53517da7.js"
+    "static/js/main.ae97d66c.js"
   ]
 }
