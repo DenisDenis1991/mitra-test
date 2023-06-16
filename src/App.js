@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import {Routes, Route, HashRouter} from 'react-router-dom'
+import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import { AppRoute } from './const';
 import MainPage from './pages/main-page/main-page';
 import Layout from './components/layout/layout';
@@ -11,7 +11,7 @@ import AboutMe from './pages/about-me/about-me';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element = {<Layout />}>
           <Route index element = {<MainPage />} />
@@ -20,7 +20,7 @@ function App() {
           <Route path={AppRoute.AboutMe} element = {<AboutMe />} />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

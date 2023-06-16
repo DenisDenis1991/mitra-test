@@ -22,6 +22,7 @@ const commentsReducer = (state = initialState, action) => {
 		case PUT_ID:
 			return {
         ...state,
+		    comments: [],
         commentId: action.commentId,
         loading: false,
 			};

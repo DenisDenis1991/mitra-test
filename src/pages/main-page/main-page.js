@@ -18,7 +18,6 @@ const MainPage = () => {
   const postsList = useSelector(state => state.userReducer.posts);
   const isLoad = useSelector(state => state.userReducer.loading);
   const fetchError = useSelector(state => state.userReducer.error);
-  console.log(postsList.length)
 
   const [inputText, setSearchTrext] = useState('');
   const [posts, setPostList] = useState(postsList);
